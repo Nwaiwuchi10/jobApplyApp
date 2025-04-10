@@ -8,6 +8,6 @@ const router = express.Router();
 router.post("/", isAuthenticated, ApplyJob);
   router.get("/", getAllAppliedJobs)
   router.get("/:id", getAppliedJobById);
-  router.get("/jobs/:jobId", getAllAppliedJobByJobId);
+  router.get("/job/:jobId", getAllAppliedJobByJobId);
 
 export default router;
