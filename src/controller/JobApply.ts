@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { ApplyNewJob, getAllAppliedJobId, getAllJobs, getJobById, getPostedJobById } from "../services/JobApply";
 
 
+
 export const ApplyJob = async (req: any, res: any) => {
   try {
     const { jobId, applicant } = req.body;
@@ -69,3 +70,31 @@ const userId=req.user
       return res.status(500).json({ message: "Server Error" });
     }
   };
+  export const updateStatus = async (req:any,res:any) => {
+    try {
+        const {status} = req.body;
+ const id=req.params.id
+        if(!status){
+            return res.status(400).json({
+                message:'status is required',
+                success:false
+            })
+        };
+
+        // find the application by applicantion id
+        const application:any = await getJobById(id);
+       
+
+        // update the status
+        application.status = status.toLowerCase();
+        await application.save();
+
+        return res.status(200).json({
+            message:"Status updated successfully.",
+            success:true
+        });
+
+    } catch (error) {
+        console.log(error);
+    }
+}
