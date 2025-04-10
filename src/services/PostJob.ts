@@ -15,7 +15,7 @@ export const createNewJob = async (
   category:string,
   postedBy: string,
   jobType: string,
-  JobState:string,
+  jobState:string,
   country: string,
   state: string,
   city: string,
@@ -42,7 +42,7 @@ export const createNewJob = async (
     category,
     postedBy,
     jobType,
-    JobState,
+    jobState,
     country,
     state,
     city,
@@ -58,4 +58,42 @@ export const createNewJob = async (
     imageUrl });
   return newJob;
 };
-
+export const getAllJobs = async () => {
+    const jobs = await PostJobs.find().sort({createdAt:-1}).populate({
+        path:'postedBy',
+       
+    }).populate({
+        path:'applications',
+        populate: {
+          path: 'applicant',
+          model: 'User',
+        },
+    })
+    return jobs;
+  };
+  export const getAllPostedByUserJobs = async (postedBy:string) => {
+    const jobs = await PostJobs.find({postedBy}).sort({createdAt:-1}).populate({
+        path:'postedBy',
+       
+    }).populate({
+        path:'applications',
+        populate: {
+          path: 'applicant',
+          model: 'User',
+        },
+    })
+    return jobs;
+  };
+  export const getJobById = async (id:string) => {
+    return await PostJobs.findById(id).populate({
+        path:'postedBy',
+        select: '-password',
+       
+    }).populate({
+      path:'applications',
+      populate: {
+        path: 'applicant',
+        model: 'User',
+      },
+  })
+  };

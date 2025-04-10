@@ -81,7 +81,15 @@ postedBy:{type: mongoose.Schema.Types.ObjectId,
     ref: "User"},
     startedAt: { type: Date, default: Date.now },
     endedAt: { type: Date },
+    applications: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'JobApplication',
+        }
+    ]
   },
+
+
   { timestamps: true }
 );
 

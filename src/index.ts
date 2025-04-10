@@ -9,7 +9,7 @@ import dotenv from "dotenv";
 import PostJobsRoutes from "./routes/PostJobs"
 import colors from "colors";
 import connectDB from "./config/db";
-
+import JobApplyRoutes from "./routes/JobApply"
 
 
 
@@ -28,6 +28,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/postjob", PostJobsRoutes);
+app.use("/api/applyJob", JobApplyRoutes);
 
 
 server.listen(port, () => {
