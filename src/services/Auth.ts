@@ -31,3 +31,13 @@ export const loginUser = async (email: string, password: string) => {
   });
   return { user, token };
 };
+
+  export const getUsers = async () => {
+    const jobs = await User.find().sort({createdAt:-1})
+    return jobs;
+  };
+
+  export const getUserById = async (id:string) => {
+    const jobs = await User.findById(id)
+    return jobs;
+  };
